@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define LINE_SIZE	2048
 
@@ -51,7 +52,7 @@ struct mark_st
 	const char *print_self;
 };
 
-static struct mark_st Mark[MARK_NUM] = 
+static struct mark_st Mark[MARK_NUM] =
 {
 	{WARNING,    WARNING_COLOR, WARNING_COLOR "warning" COLOR_END ":"},
 	{ERROR,      ERROR_COLOR,   ERROR_COLOR "error" COLOR_END ":"},
@@ -177,7 +178,7 @@ static void color_print_make_error(const char *line, const char *p_sign)
 	{
 		snprintf(buf, left - line + 1, "%s", line);
 		printf("%s%s%s%s", RED, BOLD, buf, COLOR_END);
-		
+
 		right = index(left + 1, ']');
 		snprintf(buf, right - left + 2, "%s", left);
 		printf("%s%s%s", YELLOW, buf, COLOR_END);
@@ -197,6 +198,7 @@ int main(void)
 	int i;
 	int len;
 	char *p;
+    int bErr = 0;
 
 	while (1)
 	{
@@ -227,6 +229,7 @@ int main(void)
 			if (NULL != (p = strstr(line, MAKE_SIGN)) )
 			{
 				color_print_make_error(line, p);
+                bErr = 1;
 				continue;
 			}
 		}
@@ -246,7 +249,14 @@ int main(void)
 			printf("%s", line);
 		}
 	}
-	
-	return 0;
+
+    if (1 == bErr)
+    {
+        exit(233);
+    }
+    else
+    {
+        exit(0);
+    }
 }
 

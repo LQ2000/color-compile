@@ -29,3 +29,5 @@
 *.hex
 color_compile
 out_color_info
+
+.history/

@@ -26,13 +26,13 @@ int main(int argc, char const *argv[])
 	}
 
 	// declude make menuconfig
-	if (3 == argc && 0 == strcmp(argv[1], "make") && 
+	if (3 == argc && 0 == strcmp(argv[1], "make") &&
 	    0 == strcmp(argv[2], "menuconfig") )
 	{
 		system("make menuconfig");
 		return 0;
 	}
-	
+
 	// copy cmd
 	buf[0] = '\0';
 	for (i = 1; i < argc; ++i)
